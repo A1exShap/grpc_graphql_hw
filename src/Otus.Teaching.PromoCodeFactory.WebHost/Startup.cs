@@ -18,6 +18,12 @@ using Otus.Teaching.PromoCodeFactory.DataAccess.Data;
 using Otus.Teaching.PromoCodeFactory.DataAccess.Repositories;
 using Otus.Teaching.PromoCodeFactory.Integration;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using HotChocolate;
+using Otus.Teaching.PromoCodeFactory.WebHost.Types;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Voyager;
+using Otus.Teaching.PromoCodeFactory.WebHost.RootTypes;
+using HotChocolate.Execution.Configuration;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost
 {
@@ -52,6 +58,14 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
                 options.Title = "PromoCode Factory API Doc";
                 options.Version = "1.0";
             });
+
+            services.AddGraphQL(sp => SchemaBuilder.New()
+                .AddQueryType<QueryType>()
+                .AddType<CustomerType>()
+                .AddType<CustomerPreferenceType>()
+                .AddType<PreferenceType>()
+                .Create(),
+                new QueryExecutionOptions { ForceSerialExecution = true });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +89,10 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseGraphQL("/graphql")
+               .UsePlayground("/graphql")
+               .UseVoyager("/graphql");
 
             app.UseEndpoints(endpoints =>
             {
