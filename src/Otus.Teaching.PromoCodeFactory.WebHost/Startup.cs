@@ -22,7 +22,6 @@ using HotChocolate;
 using Otus.Teaching.PromoCodeFactory.WebHost.Types;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Voyager;
-using Otus.Teaching.PromoCodeFactory.WebHost.RootTypes;
 using HotChocolate.Execution.Configuration;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost
@@ -60,10 +59,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             });
 
             services.AddGraphQL(sp => SchemaBuilder.New()
-                .AddQueryType<QueryType>()
-                .AddType<CustomerType>()
-                .AddType<CustomerPreferenceType>()
-                .AddType<PreferenceType>()
+                .AddQueryType<Query>()
                 .Create(),
                 new QueryExecutionOptions { ForceSerialExecution = true });
         }
