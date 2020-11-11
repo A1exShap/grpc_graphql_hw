@@ -59,9 +59,11 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             });
 
             services.AddGraphQL(sp => SchemaBuilder.New()
+                .AddServices(sp)
+                .AddType<CustomerType>()
                 .AddQueryType<Query>()
-                .Create(),
-                new QueryExecutionOptions { ForceSerialExecution = true });
+                .AddMutationType<Mutation>()
+                .Create());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

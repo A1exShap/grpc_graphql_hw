@@ -1,5 +1,6 @@
 ﻿using HotChocolate;
 using HotChocolate.Types;
+using HotChocolate.Types.Relay;
 using Otus.Teaching.PromoCodeFactory.Core.Abstractions.Repositories;
 using Otus.Teaching.PromoCodeFactory.Core.Domain.PromoCodeManagement;
 using Otus.Teaching.PromoCodeFactory.DataAccess;
@@ -11,7 +12,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Types
 {
     public class Query
     {
-        [UseSelection]
+        [UsePaging(SchemaType = typeof(CustomerType))]
         [UseFiltering]
         public async Task<IQueryable<Customer>> GetCustomersAsync([Service] IRepository<Customer> customerRepository)
         {

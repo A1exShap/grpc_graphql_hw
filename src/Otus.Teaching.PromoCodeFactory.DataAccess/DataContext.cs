@@ -20,6 +20,8 @@ namespace Otus.Teaching.PromoCodeFactory.DataAccess
         
         public DbSet<Partner> Partners { get; set; }
 
+        public DbSet<CustomerPreference> CustomerPreferences { get; set; }
+
         public DataContext()
         {
             
