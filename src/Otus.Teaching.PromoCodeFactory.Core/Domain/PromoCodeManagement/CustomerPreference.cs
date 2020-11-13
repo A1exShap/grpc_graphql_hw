@@ -2,7 +2,7 @@
 
 namespace Otus.Teaching.PromoCodeFactory.Core.Domain.PromoCodeManagement
 {
-    public class CustomerPreference
+    public class CustomerPreference : BaseEntity
     {
         public Guid CustomerId { get; set; }
         public virtual Customer Customer { get; set; }

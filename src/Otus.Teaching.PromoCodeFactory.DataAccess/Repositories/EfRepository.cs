@@ -67,5 +67,11 @@ namespace Otus.Teaching.PromoCodeFactory.DataAccess.Repositories
             _dataContext.Set<T>().Remove(entity);
             await _dataContext.SaveChangesAsync();
         }
+
+        public async Task DeleteManyAsync(IEnumerable<T> entities)
+        {
+            _dataContext.Set<T>().RemoveRange(entities);
+            await _dataContext.SaveChangesAsync();
+        }
     }
 }

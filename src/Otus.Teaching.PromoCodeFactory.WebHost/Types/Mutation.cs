@@ -14,11 +14,14 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Types
     {
         private readonly IRepository<Customer> customerRepository;
         private readonly IRepository<Preference> preferenceRepository;
+        private readonly IRepository<CustomerPreference> customerPreferenceRepository;
 
-        public Mutation(IRepository<Customer> customerRepository, IRepository<Preference> preferenceRepository)
+        public Mutation(IRepository<Customer> customerRepository, IRepository<Preference> preferenceRepository,
+                        IRepository<CustomerPreference> customerPreferenceRepository)
         {
             this.customerRepository = customerRepository;
             this.preferenceRepository = preferenceRepository;
+            this.customerPreferenceRepository = customerPreferenceRepository;
         }
 
         public async Task<Customer> CreateCustomerAsync(CreateOrEditCustomerRequest request)
@@ -34,8 +37,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Types
         {
             var customer = await customerRepository.GetByIdAsync(id);
 
-            //            if (customer == null)
-
+            //if (customer == null)
 
             await customerRepository.DeleteAsync(customer);
             return customer;
@@ -44,15 +46,13 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Types
         public async Task<Customer> EditCustomersAsync(Guid id, CreateOrEditCustomerRequest request)
         {
             var customer = await customerRepository.GetByIdAsync(id);
-
-            //if (customer == null)              
+            //if (customer == null)
 
             var preferences = await preferenceRepository.GetRangeByIdsAsync(request.PreferenceIds);
-
+            var oldCustomerPreferences = customerPreferenceRepository.GetAllAsync().Result.Where(x => x.CustomerId == id);
+            await customerPreferenceRepository.DeleteManyAsync(oldCustomerPreferences);
             CustomerMapper.MapFromModel(request, preferences, customer);
-
             await customerRepository.UpdateAsync(customer);
-
             return customer;
         }
     }
