@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Otus.Teaching.PromoCodeFactory.Core.Abstractions.Repositories;
+﻿using Otus.Teaching.PromoCodeFactory.Core.Abstractions.Repositories;
 using Otus.Teaching.PromoCodeFactory.Core.Domain.PromoCodeManagement;
+using Otus.Teaching.PromoCodeFactory.Core.Exceptions;
 using Otus.Teaching.PromoCodeFactory.WebHost.Mappers;
 using Otus.Teaching.PromoCodeFactory.WebHost.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,9 +35,8 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Types
         public async Task<Customer> DeleteCustomerAsync(Guid id)
         {
             var customer = await customerRepository.GetByIdAsync(id);
-
-            //if (customer == null)
-
+            if (customer == null)
+                throw new CustomerNotFoundException() { CustomerId = id };
             await customerRepository.DeleteAsync(customer);
             return customer;
         }
@@ -46,8 +44,8 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Types
         public async Task<Customer> EditCustomersAsync(Guid id, CreateOrEditCustomerRequest request)
         {
             var customer = await customerRepository.GetByIdAsync(id);
-            //if (customer == null)
-
+            if (customer == null)
+                throw new CustomerNotFoundException() { CustomerId = id };
             var preferences = await preferenceRepository.GetRangeByIdsAsync(request.PreferenceIds);
             var oldCustomerPreferences = customerPreferenceRepository.GetAllAsync().Result.Where(x => x.CustomerId == id);
             await customerPreferenceRepository.DeleteManyAsync(oldCustomerPreferences);

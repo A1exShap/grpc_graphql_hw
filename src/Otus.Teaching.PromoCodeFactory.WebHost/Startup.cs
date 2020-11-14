@@ -23,6 +23,7 @@ using Otus.Teaching.PromoCodeFactory.WebHost.Types;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Voyager;
 using HotChocolate.Execution.Configuration;
+using Otus.Teaching.PromoCodeFactory.WebHost.ErrorFilters;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost
 {
@@ -64,6 +65,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
                 .AddQueryType<Query>()
                 .AddMutationType<Mutation>()
                 .Create());
+            services.AddErrorFilter<CustomerNotFoundExceptionFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

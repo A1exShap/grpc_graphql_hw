@@ -20,7 +20,6 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Types
         }
 
         [UseFirstOrDefault]
-        [UseSelection]
         public IQueryable<Customer> GetCustomerById([Service] DataContext context, Guid id)
         {
             return context.Customers.Where(x => x.Id == id);
