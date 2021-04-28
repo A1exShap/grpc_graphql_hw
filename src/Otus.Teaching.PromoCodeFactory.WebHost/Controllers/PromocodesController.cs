@@ -72,11 +72,12 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
                 .GetWhere(d => d.Preferences.Any(x =>
                     x.Preference.Id == preference.Id));
 
-            PromoCode promoCode = PromoCodeMapper.MapGromModel(request, preference, customers);
+            var promoCode = PromoCodeMapper.MapGromModel(request, preference, customers);
 
             await _promoCodesRepository.AddAsync(promoCode);
 
-            return CreatedAtAction(nameof(GetPromocodesAsync), new { }, null);
+            var methodName = nameof(GetPromocodesAsync);
+            return CreatedAtAction(methodName, new { }, null);
         }
     }
 }

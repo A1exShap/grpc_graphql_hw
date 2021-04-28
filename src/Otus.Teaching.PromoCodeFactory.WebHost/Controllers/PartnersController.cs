@@ -148,8 +148,9 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost.Controllers
             
             await _notificationGateway
                 .SendNotificationToPartnerAsync(partner.Id, "Вам установлен лимит на отправку промокодов...");
-            
-            return CreatedAtAction(nameof(GetPartnerLimitAsync), new {id = partner.Id, limitId = newLimit.Id}, null);
+
+            var methodName = nameof(GetPartnerLimitAsync);
+            return CreatedAtAction(methodName, new {id = partner.Id, limitId = newLimit.Id}, null);
         }
         
         [HttpPost("{id}/canceledLimits")]
