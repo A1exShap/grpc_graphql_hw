@@ -51,10 +51,11 @@ namespace Otus.Teaching.PromoCodeFactory.DataAccess.Repositories
             return await _dataContext.Set<T>().Where(predicate).ToListAsync();
         }
 
-        public async Task AddAsync(T entity)
+        public async Task<Guid> AddAsync(T entity)
         {
-            await _dataContext.Set<T>().AddAsync(entity);
+            var addedEntity = await _dataContext.Set<T>().AddAsync(entity);
             await _dataContext.SaveChangesAsync();
+            return addedEntity.Entity.Id;
         }
 
         public async Task UpdateAsync(T entity)
