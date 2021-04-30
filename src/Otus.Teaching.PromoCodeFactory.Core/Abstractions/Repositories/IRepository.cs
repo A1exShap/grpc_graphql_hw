@@ -20,7 +20,7 @@ namespace Otus.Teaching.PromoCodeFactory.Core.Abstractions.Repositories
         
         Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
 
-        Task AddAsync(T entity);
+        Task<Guid> AddAsync(T entity);
 
         Task UpdateAsync(T entity);
 

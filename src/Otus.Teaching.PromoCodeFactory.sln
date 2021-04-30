@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otus.Teaching.PromoCodeFact
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otus.Teaching.PromoCodeFactory.Integration", "Otus.Teaching.PromoCodeFactory.Integration\Otus.Teaching.PromoCodeFactory.Integration.csproj", "{444DC130-7BC4-40C4-9579-4F55DE29CCE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otus.Teaching.PromoCodeFactory.Grpc.Client", "Otus.Teaching.PromoCodeFactory.Grpc.Client\Otus.Teaching.PromoCodeFactory.Grpc.Client.csproj", "{57D2F616-A2AE-4561-84DD-372E058993A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Otus.Teaching.PromoCodeFactory.Grpc.Server", "Otus.Teaching.PromoCodeFactory.Grpc.Server\Otus.Teaching.PromoCodeFactory.Grpc.Server.csproj", "{77A9E04A-00CF-4DD9-8188-1275542874DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{444DC130-7BC4-40C4-9579-4F55DE29CCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{444DC130-7BC4-40C4-9579-4F55DE29CCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{444DC130-7BC4-40C4-9579-4F55DE29CCE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57D2F616-A2AE-4561-84DD-372E058993A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57D2F616-A2AE-4561-84DD-372E058993A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57D2F616-A2AE-4561-84DD-372E058993A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57D2F616-A2AE-4561-84DD-372E058993A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A9E04A-00CF-4DD9-8188-1275542874DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A9E04A-00CF-4DD9-8188-1275542874DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A9E04A-00CF-4DD9-8188-1275542874DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A9E04A-00CF-4DD9-8188-1275542874DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

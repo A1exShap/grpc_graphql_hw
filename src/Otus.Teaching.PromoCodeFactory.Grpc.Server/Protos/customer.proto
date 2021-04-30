@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option csharp_namespace = "Otus.Teaching.PromoCodeFactory.Grpc.Server";
+
+package customer;
+
+service Customer {
+  rpc GetCustomer (GetCustomerRequest) returns (GetCustomerResponse);
+  rpc GetCustomers (GetCustomersRequest) returns (GetCustomersResponse);
+  rpc AddCustomer (AddCustomerRequest) returns (AddCustomerResponse);
+  rpc EditCustomer (EditCustomerRequest) returns (OperationResult);
+  rpc DeleteCustomer (DeleteCustomerRequest) returns (OperationResult);
+}
+
+message GetCustomersRequest { }
+message GetCustomersResponse { 
+  repeated CustomerShort Customers = 1;
+}
+message CustomerShort 
+{
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+}
+
+message GetCustomerRequest
+{
+  string id = 1;
+}
+message GetCustomerResponse
+{
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+  repeated IdName preferences = 5;
+}
+message IdName 
+{
+  string id = 1;
+  string name = 2;
+}
+
+message AddCustomerRequest {
+  string firstName = 1;
+  string lastName = 2;
+  string email = 3;
+  repeated string preferenceIds = 4;
+}
+message AddCustomerResponse {
+  string id = 1;
+}
+
+message EditCustomerRequest {
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+  repeated string preferenceIds = 5;
+}
+
+message DeleteCustomerRequest {
+  string id = 1;
+}
+
+message OperationResult {
+  bool success = 1;
+  string message = 2;
+}
