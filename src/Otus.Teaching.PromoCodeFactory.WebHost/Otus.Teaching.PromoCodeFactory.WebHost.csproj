@@ -9,7 +9,6 @@
     <ItemGroup>
       <ProjectReference Include="..\Otus.Teaching.PromoCodeFactory.Core\Otus.Teaching.PromoCodeFactory.Core.csproj" />
       <ProjectReference Include="..\Otus.Teaching.PromoCodeFactory.DataAccess\Otus.Teaching.PromoCodeFactory.DataAccess.csproj" />
-      <ProjectReference Include="..\Otus.Teaching.PromoCodeFactory.Integration\Otus.Teaching.PromoCodeFactory.Integration.csproj" />
     </ItemGroup>
 
     <ItemGroup>

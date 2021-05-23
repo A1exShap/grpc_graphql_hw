@@ -16,7 +16,6 @@ using Otus.Teaching.PromoCodeFactory.Core.Domain.Administration;
 using Otus.Teaching.PromoCodeFactory.DataAccess;
 using Otus.Teaching.PromoCodeFactory.DataAccess.Data;
 using Otus.Teaching.PromoCodeFactory.DataAccess.Repositories;
-using Otus.Teaching.PromoCodeFactory.Integration;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost
@@ -37,7 +36,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             services.AddControllers().AddMvcOptions(x=> 
                 x.SuppressAsyncSuffixInActionNames = false);
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddScoped<INotificationGateway, NotificationGateway>();
+           
             services.AddScoped<IDbInitializer, EfDbInitializer>();
             services.AddDbContext<DataContext>(x =>
             {
