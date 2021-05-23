@@ -339,3 +339,5 @@ ASALocalRun/
 .localhistory/
 
 .vscode/
+
+PromoCodeFactoryDb.sqlite
