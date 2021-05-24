@@ -15,6 +15,7 @@ using Otus.Teaching.PromoCodeFactory.Core.Abstractions.Repositories;
 using Otus.Teaching.PromoCodeFactory.Core.Domain.Administration;
 using Otus.Teaching.PromoCodeFactory.DataAccess;
 using Otus.Teaching.PromoCodeFactory.DataAccess.Data;
+using Otus.Teaching.PromoCodeFactory.DataAccess.GraphQl.Models.Customer;
 using Otus.Teaching.PromoCodeFactory.DataAccess.GraphQl.Queries;
 using Otus.Teaching.PromoCodeFactory.DataAccess.Repositories;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -67,6 +68,8 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
                 .AddGraphQLServer()
                 .AddQueryType(x => x.Name("Query"))
                     .AddTypeExtension<CustomerQueries>()
+                .AddMutationType(x => x.Name("Mutation"))
+                    .AddTypeExtension<CustomerMutations>()
                 ;
         }
 
@@ -100,7 +103,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             // GraphQL
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGraphQL(path:"/path");
+                endpoints.MapGraphQL(path: "/path");
             });
 
             dbInitializer.InitializeDb();
