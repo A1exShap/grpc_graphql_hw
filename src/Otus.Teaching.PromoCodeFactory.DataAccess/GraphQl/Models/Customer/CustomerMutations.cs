@@ -85,5 +85,24 @@ namespace Otus.Teaching.PromoCodeFactory.DataAccess.GraphQl.Models.Customer
 
         }
 
+        [UseDataContext]
+        public async Task<DeleteCustomerPayload> DeleteCustomer(
+            DeleteCustomerInput input,
+            [ScopedService] DataContext context,
+            CancellationToken token
+        )
+        {
+            var customer = context.Customers.FirstOrDefault(x => x.Id == input.Id);
+            if (customer == null)
+            {
+                return new DeleteCustomerPayload(
+                    new UserError($"No customers with id {input.Id}", "Id"));
+            }
+
+            context.Customers.Remove(customer);
+            await context.SaveChangesAsync(token);
+
+            return new DeleteCustomerPayload(input.Id);
+        }
     }
 }
