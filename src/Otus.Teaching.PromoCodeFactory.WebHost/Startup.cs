@@ -72,6 +72,11 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PromoCode Factory API", Version = "v2" });
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+
+                var filePath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+                c.IncludeXmlComments(filePath);
+                c.IncludeGrpcXmlComments(filePath, includeControllerXmlComments: true);
             });
 
             services.AddGrpcSwagger();
