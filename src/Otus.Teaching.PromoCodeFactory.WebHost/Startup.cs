@@ -1,30 +1,33 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Castle.Core.Configuration;
+using GrpcServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
+//using NSwag.AspNetCore;
+using Microsoft.OpenApi.Models;
 using Otus.Teaching.PromoCodeFactory.Core.Abstractions.Gateways;
 using Otus.Teaching.PromoCodeFactory.Core.Abstractions.Repositories;
-using Otus.Teaching.PromoCodeFactory.Core.Domain.Administration;
 using Otus.Teaching.PromoCodeFactory.DataAccess;
 using Otus.Teaching.PromoCodeFactory.DataAccess.Data;
 using Otus.Teaching.PromoCodeFactory.DataAccess.Repositories;
 using Otus.Teaching.PromoCodeFactory.Integration;
-using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
-//using NSwag.AspNetCore;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.FileProviders;
+using System;
 using System.IO;
-using GrpcServer.Services;
 using System.Reflection;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+
+// References 
+// gRPC
+// https://gitlab.com/aa.gerasimenko/Otus.gRPC 
+// https://github.com/grpc/grpc-dotnet/tree/master/examples
+// https://learn.microsoft.com/ru-ru/aspnet/core/grpc/protobuf?view=aspnetcore-7.0 
+// https://protobuf.dev/programming-guides/proto3/ 
+// https://grpc.io/docs/guides/error/
+// https://learn.microsoft.com/ru-ru/aspnet/core/grpc/json-transcoding-openapi?view=aspnetcore-7.0
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost
 {
@@ -150,7 +153,6 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
                 "To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
                 });
             });
-
 
             dbInitializer.InitializeDb();
         }
