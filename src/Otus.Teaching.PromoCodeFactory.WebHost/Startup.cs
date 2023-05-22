@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using GrpcServer.Services;
+using System.Reflection;
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost
 {
@@ -70,7 +71,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "HTTP API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PromoCode Factory API", Version = "v2" });
             });
 
             services.AddGrpcSwagger();
@@ -114,7 +115,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EAP Metadata HTTP API V1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PromoCode Factory API V2"));
 
             app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true });
 
@@ -129,7 +130,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             {
                 endpoints.MapControllers();
 
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<CustomerService>();
 
                 if (env.IsDevelopment())
                 {

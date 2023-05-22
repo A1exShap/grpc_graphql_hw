@@ -1,0 +1,106 @@
+syntax = "proto3";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "GrpcServer";
+
+package gRPC;
+
+// My amazing greeter service.
+service Customers {
+  // Sends a greeting.
+  rpc GetCustomers (CustomerListRequest) returns (CustomerListReply){
+    option (google.api.http) = {
+      get: "/api/v2/Customers/"
+      response_body: "customers"
+    };
+  };
+
+  rpc GetCustomer (CustomerRequest) returns (CustomerReply){
+    option (google.api.http) = {
+      get: "/api/v2/Customers/{id}"
+    };
+  };
+
+  rpc CreateCustomer (CreateCustomerRequest) returns (CustomerReply){
+    option (google.api.http) = {
+      post: "/api/v2/Customers/"
+      body: "*"
+    };
+  };
+
+  rpc EditCustomer (EditCustomerRequest) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      put: "/api/v2/Customers/{id}"
+      body: "data"
+    };
+  };
+
+  rpc DeleteCustomer (DeleteCustomerRequest) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      delete: "/api/v2/Customers/{id}"
+    };
+  };
+}
+
+// GET /api/v2/Customers/
+message CustomerListRequest { }
+
+message CustomerListReply {
+  repeated CustomerListItem customers = 1;
+}
+
+message CustomerListItem {
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+}
+
+// GET /api/v2/Customers/{id}
+message CustomerRequest {
+  string id = 1;
+}
+
+message CustomerReply {
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+  repeated PreferenceListItem preferences = 5;
+  repeated PromoCodeListItem promoCodes = 6; 
+}
+
+message PreferenceListItem {
+  string id = 1;
+  string name = 2;
+}
+
+message PromoCodeListItem{
+  string id = 1;
+  string code = 2;
+  string serviceInfo = 3;
+  google.protobuf.Timestamp beginDate = 4;
+  google.protobuf.Timestamp endDate = 5;
+  string partnerName = 6;
+}
+
+// POST /api/v2/Customers/
+message CreateCustomerRequest{
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+  repeated string preferenceIds = 5;
+}
+
+// PUT /api/v2/Customers/
+message EditCustomerRequest{
+  string id = 1;
+  CreateCustomerRequest data = 2;
+}
+
+// DELETE /api/v2/Customers/{id}
+message DeleteCustomerRequest{
+  string id = 1;
+}
