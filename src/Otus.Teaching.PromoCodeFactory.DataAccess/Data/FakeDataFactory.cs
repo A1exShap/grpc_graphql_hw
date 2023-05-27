@@ -70,6 +70,8 @@ namespace Otus.Teaching.PromoCodeFactory.DataAccess.Data
             get
             {
                 var customerId = Guid.Parse("a6c8c6b1-4349-45b0-ab31-244740aaf0f0");
+                var customerId1 = Guid.Parse("a6c8c6b1-4349-45b0-ab31-244740aaf0f1");
+                var customerId2 = Guid.Parse("a6c8c6b1-4349-45b0-ab31-244740aaf0f2");
                 var customers = new List<Customer>()
                 {
                     new Customer()
@@ -88,6 +90,46 @@ namespace Otus.Teaching.PromoCodeFactory.DataAccess.Data
                             new CustomerPreference()
                             {
                                 CustomerId = customerId,
+                                PreferenceId = Guid.Parse("ef7f299f-92d7-459f-896e-078ed53ef99c")
+                            }
+                        }
+                    },
+                    new Customer()
+                    {
+                        Id = customerId1,
+                        Email = "ivan_petrov@mail.ru",
+                        FirstName = "Иван",
+                        LastName = "Петров",
+                        Preferences = new List<CustomerPreference>()
+                        {
+                            new CustomerPreference()
+                            {
+                                CustomerId = customerId1,
+                                PreferenceId = Guid.Parse("76324c47-68d2-472d-abb8-33cfa8cc0c84")
+                            },
+                            new CustomerPreference()
+                            {
+                                CustomerId = customerId1,
+                                PreferenceId = Guid.Parse("ef7f299f-92d7-459f-896e-078ed53ef99c")
+                            }
+                        }
+                    },
+                    new Customer()
+                    {
+                        Id = customerId2,
+                        Email = "ivan_andreev@mail.ru",
+                        FirstName = "Иван",
+                        LastName = "Петров",
+                        Preferences = new List<CustomerPreference>()
+                        {
+                            new CustomerPreference()
+                            {
+                                CustomerId = customerId2,
+                                PreferenceId = Guid.Parse("76324c47-68d2-472d-abb8-33cfa8cc0c84")
+                            },
+                            new CustomerPreference()
+                            {
+                                CustomerId = customerId2,
                                 PreferenceId = Guid.Parse("ef7f299f-92d7-459f-896e-078ed53ef99c")
                             }
                         }
