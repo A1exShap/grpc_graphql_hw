@@ -2,6 +2,7 @@ using GrpcServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ using Otus.Teaching.PromoCodeFactory.DataAccess;
 using Otus.Teaching.PromoCodeFactory.DataAccess.Data;
 using Otus.Teaching.PromoCodeFactory.DataAccess.Repositories;
 using Otus.Teaching.PromoCodeFactory.Integration;
+using Otus.Teaching.PromoCodeFactory.SignalR;
 using System;
 using System.IO;
 using System.Reflection;
@@ -28,6 +30,9 @@ using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 // https://protobuf.dev/programming-guides/proto3/ 
 // https://grpc.io/docs/guides/error/
 // https://learn.microsoft.com/ru-ru/aspnet/core/grpc/json-transcoding-openapi?view=aspnetcore-7.0
+// SignalR
+// https://github.com/Dzitsky/RealTimeProj1
+// https://medium.com/swlh/creating-real-time-app-with-asp-net-core-signalr-and-react-in-typescript-90aad9c1170b
 
 namespace Otus.Teaching.PromoCodeFactory.WebHost
 {
@@ -83,6 +88,17 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
             });
 
             services.AddGrpcSwagger();
+
+            // SignalR
+            services.AddSignalR();
+            services.AddSingleton<IUserIdProvider, UserIdProvider>();
+            services.AddCors(options =>
+                options.AddPolicy("CorsPolicy",
+                    builder =>
+                        builder.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins("http://localhost:3001", "http://localhost:3002")
+                        .AllowCredentials()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -132,7 +148,7 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
 
             app.UseRouting();
 
-            app.UseCors("AllowAll");
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
@@ -152,6 +168,8 @@ namespace Otus.Teaching.PromoCodeFactory.WebHost
                 "Communication with gRPC endpoints must be made through a gRPC client. " +
                 "To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
                 });
+
+                endpoints.MapHub<PromoCodesHub>("/promocodeshub");
             });
 
             dbInitializer.InitializeDb();
