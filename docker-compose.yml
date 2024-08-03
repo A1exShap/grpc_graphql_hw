@@ -13,7 +13,7 @@ services:
       - promocode-factory-db
   #Db
   promocode-factory-db:
-    image: "postgres:9.6.17"
+    image: "postgres"
     container_name: 'promocode-factory-db'
     restart: always 
     ports:
