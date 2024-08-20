@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Otus.Teaching.PromoCodeFactory.Core.Domain.Administration;
+using System;
 using System.Collections.Generic;
-using System.Runtime;
-using Otus.Teaching.PromoCodeFactory.Core.Domain.Administration;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Otus.Teaching.PromoCodeFactory.Core.Domain.PromoCodeManagement
 {
@@ -12,8 +12,10 @@ namespace Otus.Teaching.PromoCodeFactory.Core.Domain.PromoCodeManagement
 
         public string ServiceInfo { get; set; }
 
+        [Column(TypeName = "timestamp with time zone")]
         public DateTime BeginDate { get; set; }
 
+        [Column(TypeName = "timestamp with time zone")]
         public DateTime EndDate { get; set; }
 
         public string PartnerName { get; set; }
