@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option csharp_namespace = "Otus.Teaching.PromoCodeFactory.gRPC";
+
+package customer;
+
+service CustomerService {
+    rpc GetCustomers (Empty) returns (stream CustomerShortResponse);
+    rpc GetCustomer (CustomerId) returns (CustomerResponse);
+    rpc CreateCustomer (CreateOrEditCustomerRequest) returns (CustomerId);
+    rpc EditCustomer (EditCustomerRequest) returns (Empty);
+    rpc DeleteCustomer (CustomerId) returns (Empty);
+}
+
+message CustomerShortResponse {
+    string id = 1;
+    string firstName = 2;
+    string lastName = 3;
+    string email = 4;
+}
+
+message CustomerResponse {
+    string id = 1;
+    string firstName = 2;
+    string lastName = 3;
+    string email = 4;
+    repeated PreferenceResponse preferences = 5;
+}
+
+message PreferenceResponse {
+    string id = 1;
+    string name = 2;
+}
+
+message CreateOrEditCustomerRequest {
+    string firstName = 1;
+    string lastName = 2;
+    string email = 3;
+    repeated string preferenceIds = 4;
+}
+
+message CustomerId {
+    string id = 1;
+}
+
+message EditCustomerRequest {
+    string id = 1;
+    CreateOrEditCustomerRequest customer = 2;
+}
+
+message Empty {}
